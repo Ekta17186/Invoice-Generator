@@ -1,28 +1,44 @@
-function createInvoice() {
+document.getElementById('invoiceDate').valueAsDate = new Date();
 
-    let customer = document.getElementById("customer").value;
-    let product = document.getElementById("product").value;
-    let qty = Number(document.getElementById("qty").value);
-    let price = Number(document.getElementById("price").value);
-
-    if(customer=="" || product=="" || qty<=0 || price<=0){
-        alert("Please fill all fields.");
-        return;
-    }
-
-    let subtotal = qty * price;
-    let gst = subtotal * 0.18;
-    let total = subtotal + gst;
-
-    document.getElementById("result").innerHTML = `
-        <h2>Invoice</h2>
-        <hr>
-        <p><strong>Customer:</strong> ${customer}</p>
-        <p><strong>Product:</strong> ${product}</p>
-        <p><strong>Quantity:</strong> ${qty}</p>
-        <p><strong>Price:</strong> ₹${price}</p>
-        <p><strong>Subtotal:</strong> ₹${subtotal.toFixed(2)}</p>
-        <p><strong>GST (18%):</strong> ₹${gst.toFixed(2)}</p>
-        <h3>Total: ₹${total.toFixed(2)}</h3>
+function addRow() {
+    const tbody = document.getElementById('itemRows');
+    const row = document.createElement('tr');
+    
+    row.innerHTML = `
+        <td><input type="text" class="item-desc" placeholder="Item Name"></td>
+        <td><input type="number" class="item-qty" value="1" min="1" oninput="calculateTotal()"></td>
+        <td><input type="number" class="item-price" value="0" min="0" oninput="calculateTotal()"></td>
+        <td class="item-total">₹0.00</td>
+        <td><button class="btn-danger" onclick="deleteRow(this)">X</button></td>
     `;
+    
+    tbody.appendChild(row);
+    calculateTotal();
+}
+
+function deleteRow(button) {
+    const row = button.parentElement.parentElement;
+    row.remove();
+    calculateTotal();
+}
+
+function calculateTotal() {
+    const rows = document.querySelectorAll('#itemRows tr');
+    let subTotal = 0;
+
+    rows.forEach(row => {
+        const qty = parseFloat(row.querySelector('.item-qty').value) || 0;
+        const price = parseFloat(row.querySelector('.item-price').value) || 0;
+        const total = qty * price;
+        
+        row.querySelector('.item-total').innerText = '₹' + total.toFixed(2);
+        subTotal += total;
+    });
+
+    const tax = subTotal * 0.18;
+    const grandTotal = subTotal + tax;
+
+    document.getElementById('subTotal').innerText = '₹' + subTotal.toFixed(2);
+    document.getElementById('taxTotal').innerText = '₹' + tax.toFixed(2);
+    document.getElementById('grandTotal').innerText = '₹' + grandTotal.toFixed(2);
 }
