@@ -1,99 +1,89 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 20px;
 }
 
-body{
-    background:#f4f7fb;
-    color:#333;
+.invoice-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-header{
-    background:#2563eb;
-    color:#fff;
-    text-align:center;
-    padding:40px 20px;
+h2, h3 {
+    color: #333;
 }
 
-header h1{
-    font-size:40px;
-    margin-bottom:10px;
+.row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
 }
 
-header p{
-    font-size:18px;
+.col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-.container{
-    width:90%;
-    max-width:900px;
-    margin:40px auto;
+label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #666;
+    font-weight: 600;
 }
 
-.card{
-    background:#fff;
-    padding:30px;
-    border-radius:12px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
 }
 
-.card h2{
-    text-align:center;
-    margin-bottom:25px;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    margin-bottom: 15px;
 }
 
-input{
-    width:100%;
-    padding:14px;
-    margin-bottom:15px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:16px;
-    outline:none;
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
 }
 
-input:focus{
-    border-color:#2563eb;
+th {
+    background-color: #f8f9fa;
 }
 
-button{
-    width:100%;
-    padding:15px;
-    background:#2563eb;
-    color:#fff;
-    border:none;
-    border-radius:8px;
-    font-size:18px;
-    cursor:pointer;
-    transition:.3s;
+input.item-desc { width: 90%; }
+input.item-qty, input.item-price { width: 80px; }
+
+.btn-success { background: #28a745; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 4px; }
+.btn-danger { background: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px; }
+.btn-primary { background: #007bff; color: white; border: none; padding: 12px 25px; cursor: pointer; border-radius: 4px; font-size: 16px; }
+
+.summary {
+    text-align: right;
+    font-size: 16px;
+    margin-top: 20px;
 }
 
-button:hover{
-    background:#1d4ed8;
+.grand-total {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2c3e50;
 }
 
-footer{
-    background:#111827;
-    color:#fff;
-    text-align:center;
-    padding:20px;
-    margin-top:40px;
-}
-
-@media(max-width:768px){
-
-header h1{
-    font-size:30px;
-}
-
-.card{
-    padding:20px;
-}
-
-button{
-    font-size:16px;
-}
-
+@media print {
+    body { background: none; padding: 0; }
+    .invoice-container { box-shadow: none; max-width: 100%; padding: 0; }
+    button, .btn-success, .btn-danger { display: none !important; }
+    input { border: none; background: transparent; padding: 0; }
+    th:last-child, td:last-child { display: none; }
 }
