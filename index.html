@@ -1,52 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Invoice Generator</title>
-
-<link rel="stylesheet" href="style.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Generator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="invoice-container">
+        <h2>Invoice Generator</h2>
+        
+        <div class="row">
+            <div class="col">
+                <label>आपकी कंपनी का नाम</label>
+                <input type="text" id="compName" placeholder="My Company Ltd.">
+            </div>
+            <div class="col">
+                <label>ग्राहक (Client) का नाम</label>
+                <input type="text" id="clientName" placeholder="John Doe">
+            </div>
+        </div>
 
-<header>
+        <div class="row">
+            <div class="col">
+                <label>इनवॉइस नंबर</label>
+                <input type="text" id="invoiceNum" value="#INV-1001">
+            </div>
+            <div class="col">
+                <label>तारीख</label>
+                <input type="date" id="invoiceDate">
+            </div>
+        </div>
 
-<h1>Invoice Generator</h1>
+        <hr>
 
-<p>Create Professional GST Invoice</p>
+        <h3>आइटम्स / सर्विसेज</h3>
+        <table id="itemsTable">
+            <thead>
+                <tr>
+                    <th>विवरण (Description)</th>
+                    <th>मात्रा (Qty)</th>
+                    <th>कीमत (Price)</th>
+                    <th>कुल (Total)</th>
+                    <th>हटाएं</th>
+                </tr>
+            </thead>
+            <tbody id="itemRows">
+                <tr>
+                    <td><input type="text" class="item-desc" placeholder="Item Name"></td>
+                    <td><input type="number" class="item-qty" value="1" min="1" oninput="calculateTotal()"></td>
+                    <td><input type="number" class="item-price" value="0" min="0" oninput="calculateTotal()"></td>
+                    <td class="item-total">₹0.00</td>
+                    <td><button class="btn-danger" onclick="deleteRow(this)">X</button></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <button class="btn-success" onclick="addRow()">+ नया आइटम जोड़ें</button>
 
-</header>
+        <hr>
 
-<div class="container">
+        <div class="summary">
+            <p>Sub Total: <span id="subTotal">₹0.00</span></p>
+            <p>Tax (18% GST): <span id="taxTotal">₹0.00</span></p>
+            <p class="grand-total">Grand Total: <span id="grandTotal">₹0.00</span></p>
+        </div>
 
-<div class="card">
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="btn-primary" onclick="window.print()">🖨️ Invoice प्रिंट / PDF सेव करें</button>
+        </div>
+    </div>
 
-<h2>Create Invoice</h2>
-
-<input type="text" id="customer" placeholder="Customer Name">
-
-<input type="text" id="product" placeholder="Product Name">
-
-<input type="number" id="qty" placeholder="Quantity">
-
-<input type="number" id="price" placeholder="Price">
-
-<button onclick="createInvoice()">
-
-Generate Invoice
-
-</button>
-
-</div>
-
-<div class="card" id="result">
-
-</div>
-
-</div>
-
-<script src="script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
